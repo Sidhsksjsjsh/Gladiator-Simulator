@@ -15,6 +15,18 @@ end)
 local OrionLib = loadstring(game:HttpGet("https://pastebin.com/raw/NMEHkVTb"))()
 local Window = OrionLib:MakeWindow({Name = "VIP Turtle Hub V3", HidePremium = false, SaveConfig = false, ConfigFolder = "TurtleFi"})
 
+local function tp(dis)
+	for _,v in pairs(game.Players:GetPlayers()) do
+	    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,dis)
+	end
+end
+
+local function bringsys(dis)
+	for _,v in pairs(game.Players:GetPlayers()) do
+	    v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,dis)
+	end
+end
+
 local T1 = Window:MakeTab({
 Name = "Main",
 Icon = "rbxassetid://",
@@ -39,6 +51,21 @@ Icon = "rbxassetid://",
 PremiumOnly = false
 })
 
+T4:AddLabel("Arena Only")
+
+T4:AddSlider({
+  Name = "Teleport And Bring Distance",
+  Min = 0,
+  Max = 20,
+  Default = 5,
+  Color = Color3.fromRGB(0,1,0),
+  Increment = 1,
+  ValueName = "Distance",
+  Callback = function(Value)
+     _G.TP_AND_BRING_DISTANCE = Value
+  end    
+})
+
 T4:AddToggle({
   Name = "Auto Kill player",
   Default = false,
@@ -47,6 +74,30 @@ T4:AddToggle({
       while wait() do
         if _G.akp == false then break end
         game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RE"]["PlayerArenaAttackStart"]:FireServer()
+      end
+  end    
+})
+
+T4:AddToggle({
+  Name = "Bring player",
+  Default = false,
+  Callback = function(Value)
+    _G.bps = Value
+      while wait() do
+        if _G.bps == false then break end
+        bringsys(_G.TP_AND_BRING_DISTANCE)
+      end
+  end    
+})
+
+T4:AddToggle({
+  Name = "Teleport player",
+  Default = false,
+  Callback = function(Value)
+    _G.tpp = Value
+      while wait() do
+        if _G.tpp == false then break end
+        tp(_G.TP_AND_BRING_DISTANCE)
       end
   end    
 })
