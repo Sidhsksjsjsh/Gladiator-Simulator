@@ -102,3 +102,15 @@ T1:AddToggle({
       end
   end    
 })
+
+T1:AddToggle({
+  Name = "Auto Rebirth",
+  Default = false,
+  Callback = function(Value)
+    _G.r = Value
+      while wait() do
+        if _G.r == false then break end
+        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestPurchaseRebirth"]:InvokeServer()
+      end
+  end    
+})
