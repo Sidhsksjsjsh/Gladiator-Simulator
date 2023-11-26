@@ -27,6 +27,23 @@ local function bringsys(dis)
 	end
 end
 
+local zone = {
+	"Meadow",
+	"Desert",
+	"Ice",
+	"Forest",
+	"Chaos",
+	"Fire"
+}
+
+local function Converting(str)
+	return str:gsub("Meadow","1"):gsub("Desert","2"):gsub("Ice","3"):gsub("Forest","4"):gsub("Chaos","5"):gsub("Fire","6")
+end
+
+local function ConvertingToNumber(str)
+	return tonumber(Converting(str))
+end
+
 local T1 = Window:MakeTab({
 Name = "Main",
 Icon = "rbxassetid://",
@@ -45,10 +62,33 @@ Icon = "rbxassetid://",
 PremiumOnly = false
 })
 
+local T5 = Window:MakeTab({
+Name = "Teleport",
+Icon = "rbxassetid://",
+PremiumOnly = false
+})
+
 local T4 = Window:MakeTab({
 Name = "Arena PVP",
 Icon = "rbxassetid://",
 PremiumOnly = false
+})
+
+T5:AddDropdown({
+   Name = "Select Zone",
+   Default = zone[1],
+   Options = zone,
+   Callback = function(Value)
+      _G.ZoneTP = ConvertingToNumber(Value)
+   end    
+})
+
+T5:AddButton({
+  Name = "Teleport",
+  Callback = function()
+      game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestTeleport"]:InvokeServer(_G.ZoneTP)
+      game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestChangeZone"]:InvokeServer(_G.ZoneTP)
+  end    
 })
 
 T4:AddLabel("Arena Only")
@@ -105,7 +145,7 @@ T4:AddToggle({
 T2:AddDropdown({
    Name = "Select Egg ID",
    Default = "1",
-   Options = {"1","2","3","4","5","6","7","8","9","10"},
+   Options = {"1","2","3","4","5","6"},
    Callback = function(Value)
       _G.EggID = tonumber(Value)
    end    
@@ -114,7 +154,7 @@ T2:AddDropdown({
 T2:AddDropdown({
    Name = "Select Hatch Amount",
    Default = "1",
-   Options = {"1","3","8","10"},
+   Options = {"1","3","8"},
    Callback = function(Value)
       _G.a_h = tonumber(Value)
    end    
