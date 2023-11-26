@@ -23,7 +23,7 @@ end
 
 local function bringsys(dis)
 	for _,v in pairs(game.Players:GetPlayers()) do
-	    v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,dis)
+	    v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-dis)
 	end
 end
 
