@@ -1,3 +1,17 @@
+local mt = getrawmetatable(game);
+setreadonly(mt,false)
+local namecall = mt.__namecall
+
+mt.__namecall = newcclosure(function(self, ...)
+	local Method = getnamecallmethod()
+	local Args = {...}
+
+	if Method == 'InvokeServer' and self.Name == 'purchaseEgg' then
+        DeleteFuckingPet = Args[2]
+end
+	return namecall(self, ...) 
+end)
+
 local OrionLib = loadstring(game:HttpGet("https://pastebin.com/raw/NMEHkVTb"))()
 local Window = OrionLib:MakeWindow({Name = "VIP Turtle Hub V3", HidePremium = false, SaveConfig = true, ConfigFolder = "TurtleFi"})
 
