@@ -79,15 +79,15 @@ T5:AddDropdown({
    Default = zone[1],
    Options = zone,
    Callback = function(Value)
-      _G.ZoneTP = ConvertingToNumber(Value)
+      _G.ZoneTP = Converting(Value)
    end    
 })
 
 T5:AddButton({
   Name = "Teleport",
   Callback = function()
-      game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestTeleport"]:InvokeServer(_G.ZoneTP)
-      game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestChangeZone"]:InvokeServer(_G.ZoneTP)
+      game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestTeleport"]:InvokeServer(tonumber(_G.ZoneTP))
+      game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestChangeZone"]:InvokeServer(tonumber(_G.ZoneTP))
   end    
 })
 
