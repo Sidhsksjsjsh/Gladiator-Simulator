@@ -33,6 +33,24 @@ Icon = "rbxassetid://",
 PremiumOnly = false
 })
 
+local T4 = Window:MakeTab({
+Name = "Arena PVP",
+Icon = "rbxassetid://",
+PremiumOnly = false
+})
+
+T4:AddToggle({
+  Name = "Auto Kill player",
+  Default = false,
+  Callback = function(Value)
+    _G.akp = Value
+      while wait() do
+        if _G.akp == false then break end
+        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RE"]["PlayerArenaAttackStart"]:FireServer()
+      end
+  end    
+})
+
 T2:AddDropdown({
    Name = "Select Egg ID",
    Default = "1",
