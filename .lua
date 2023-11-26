@@ -6,14 +6,14 @@ mt.__namecall = newcclosure(function(self, ...)
 	local Method = getnamecallmethod()
 	local Args = {...}
 
-	if Method == 'InvokeServer' and self.Name == 'purchaseEgg' then
-        DeleteFuckingPet = Args[2]
-end
+	if Method == 'InvokeServer' and self.Name == "ResetIdleTimer" then -- Blocked Script Caller with name "ResetIdleTimer"
+           return 
+        end
 	return namecall(self, ...) 
 end)
 
 local OrionLib = loadstring(game:HttpGet("https://pastebin.com/raw/NMEHkVTb"))()
-local Window = OrionLib:MakeWindow({Name = "VIP Turtle Hub V3", HidePremium = false, SaveConfig = true, ConfigFolder = "TurtleFi"})
+local Window = OrionLib:MakeWindow({Name = "VIP Turtle Hub V3", HidePremium = false, SaveConfig = false, ConfigFolder = "TurtleFi"})
 
 local T1 = Window:MakeTab({
 Name = "Main",
@@ -33,15 +33,43 @@ Icon = "rbxassetid://",
 PremiumOnly = false
 })
 
-T2:AddLabel("Coming Soon!")
+T2:AddDropdown({
+   Name = "Select Egg ID",
+   Default = "1",
+   Options = {"1","2","3","4","5","6","7","8","9","10"},
+   Callback = function(Value)
+      _G.EggID = tonumber(Value)
+   end    
+})
 
-T3:AddTextbox({
-  Name = "Enter Boss ID (Noob = 1)",
-  Default = "1",
-  TextDisappear = false,
+T2:AddDropdown({
+   Name = "Select Hatch Amount",
+   Default = "1",
+   Options = {"1","3","8","10"},
+   Callback = function(Value)
+      _G.a_h = tonumber(Value)
+   end    
+})
+
+T2:AddToggle({
+  Name = "Auto Hatch",
+  Default = false,
   Callback = function(Value)
-     _G.BossF = tonumber(Value)
-  end  
+    _G.he = Value
+      while wait() do
+        if _G.he == false then break end
+        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestOpenCrate"]:InvokeServer(_G.EggID,_G.a_h)
+      end
+  end    
+})
+
+T3:AddDropdown({
+   Name = "Select Boss ID",
+   Default = "1",
+   Options = {"1","2","3","4"},
+   Callback = function(Value)
+      _G.BossF = tonumber(Value)
+   end    
 })
 
 T3:AddToggle({
@@ -64,8 +92,16 @@ T1:AddToggle({
     _G.Click = Value
       while wait() do
         if _G.Click == false then break end
-        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RE"]["PlayerAttackStart"]:FireServer()
-        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestPlayerFightModeAttack"]:InvokeServer()
+        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RE"]["PlayerAttackStart"]:FireServer() --1
+	game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RE"]["PlayerAttackStart"]:FireServer() --2
+	game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RE"]["PlayerAttackStart"]:FireServer() --3
+	game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RE"]["PlayerAttackStart"]:FireServer() --4
+	game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RE"]["PlayerAttackStart"]:FireServer() --5
+        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestPlayerFightModeAttack"]:InvokeServer() --1
+	game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestPlayerFightModeAttack"]:InvokeServer() --2
+	game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestPlayerFightModeAttack"]:InvokeServer() --3
+	game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestPlayerFightModeAttack"]:InvokeServer() --4
+	game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestPlayerFightModeAttack"]:InvokeServer() --5
       end
   end    
 })
