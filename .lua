@@ -1,20 +1,32 @@
 local mt = getrawmetatable(game);
 setreadonly(mt,false)
 local namecall = mt.__namecall
+local PetIDINDEX = ""
 local remote = {
 	"InvokeServer",
 	"FireServer"
 }
 
-mt.__namecall = newcclosure(function(self, ...)
+local args = {
+    [1] = 2,
+    [2] = "@104",
+    [3] = true
+}
+
+--game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestEquipItem"]:InvokeServer(unpack(args))
+
+--[[mt.__namecall = newcclosure(function(self, ...)
 	local Method = getnamecallmethod()
 	local Args = {...}
 
 	if Method == remote[1] and self.Name == "ResetIdleTimer" then -- Blocked Script Caller with name "ResetIdleTimer"
            return 
+	elseif Method == remote[1] and self.Name == "RequestEquipItem" and Args[2]:sub(1,1) == "@" then
+	   PetIDINDEX = Args[2]
         end
 	return namecall(self, ...) 
 end)
+]]
 
 local OrionLib = loadstring(game:HttpGet("https://pastebin.com/raw/NMEHkVTb"))()
 local Window = OrionLib:MakeWindow({Name = "VIP Turtle Hub V3", HidePremium = false, SaveConfig = false, ConfigFolder = "TurtleFi"})
@@ -88,6 +100,12 @@ PremiumOnly = false
 
 local T4 = Window:MakeTab({
 Name = "Arena PVP",
+Icon = "rbxassetid://",
+PremiumOnly = false
+})
+
+local T7 = Window:MakeTab({
+Name = "Debug & Logger",
 Icon = "rbxassetid://",
 PremiumOnly = false
 })
@@ -314,3 +332,15 @@ T1:AddToggle({
       end
   end    
 })
+
+mt.__namecall = newcclosure(function(self, ...)
+	local Method = getnamecallmethod()
+	local Args = {...}
+
+	if Method == remote[1] and self.Name == "ResetIdleTimer" then -- Blocked Script Caller with name "ResetIdleTimer"
+           return 
+	elseif Method == remote[1] and self.Name == "RequestEquipItem" and Args[2]:sub(1,1) == "@" then
+	   T7:AddLabel("[ Logger ]: Your pet ID is " .. tostring(Args[2]))
+        end
+	return namecall(self, ...) 
+end)
