@@ -333,13 +333,22 @@ T1:AddToggle({
   end    
 })
 
+--[[local args = {
+    [1] = "ServerStorage.Modules.Player:1459: attempt to index nil with 'equipped'",
+    [2] = "3OtPTN1, line 56 - function Gold\n3OtPTN1, line 125 - function Callback\n2wNWz2, line 920\n",
+    [3] = "LocalScript"
+}
+
+game:GetService("ReplicatedStorage")["GameAnalyticsError"]:FireServer(unpack(args))
+]]
+
 mt.__namecall = newcclosure(function(self, ...)
 	local Method = getnamecallmethod()
 	local Args = {...}
 
-	if Method == remote[1] and self.Name == "ResetIdleTimer" then -- Blocked Script Caller with name "ResetIdleTimer"
-           return 
-	elseif Method == remote[1] and self.Name == "RequestEquipItem" and Args[2]:sub(1,1) == "@" then
+	if Method == remote[2] and self.Name == "GameAnalyticsError" then -- Blocked Script Caller with name "ResetIdleTimer"
+           T7:AddLabel("[ Debug ]: \nArgs 1: " .. tostring(Args[1]) .. "\nArgs 2: " .. tostring(Args[2]) .. "\nArgs 3: " .. tostring(Args[3]))
+	elseif Method == remote[1] and self.Name == "RequestEquipItem" then
 	   T7:AddLabel("[ Logger ]: Your pet ID is " .. tostring(Args[2]))
         end
 	return namecall(self, ...) 
