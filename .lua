@@ -31,16 +31,12 @@ end)
 local OrionLib = loadstring(game:HttpGet("https://pastebin.com/raw/NMEHkVTb"))()
 local Window = OrionLib:MakeWindow({Name = "VIP Turtle Hub V3", HidePremium = false, SaveConfig = false, ConfigFolder = "TurtleFi"})
 
-local function tp(dis)
-	for _,v in pairs(game.Players:GetPlayers()) do
-	    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,dis)
-	end
+local function tp(str,dis)
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = str.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,dis)
 end
 
-local function bringsys(dis)
-	for _,v in pairs(game.Players:GetPlayers()) do
-	    v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-dis)
-	end
+local function bringsys(str,dis)
+	str.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-dis)
 end
 
 local zone = {
@@ -156,7 +152,7 @@ T4:AddSlider({
   Name = "Teleport And Bring Distance",
   Min = 0,
   Max = 20,
-  Default = 5,
+  Default = 2,
   Color = Color3.fromRGB(0,1,0),
   Increment = 1,
   ValueName = "Distance",
@@ -184,7 +180,9 @@ T4:AddToggle({
     _G.bps = Value
       while wait() do
         if _G.bps == false then break end
-        bringsys(_G.TP_AND_BRING_DISTANCE)
+        for _,v in pairs(game.Players:GetPlayers()) do
+	    bringsys(v,_G.TP_AND_BRING_DISTANCE)
+	end
       end
   end    
 })
@@ -196,7 +194,9 @@ T4:AddToggle({
     _G.tpp = Value
       while wait() do
         if _G.tpp == false then break end
-        tp(_G.TP_AND_BRING_DISTANCE)
+        for _,v in pairs(game.Players:GetPlayers()) do
+	    tp(v,_G.TP_AND_BRING_DISTANCE)
+	end
       end
   end    
 })
