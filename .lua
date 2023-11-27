@@ -1,7 +1,7 @@
 local mt = getrawmetatable(game);
 setreadonly(mt,false)
 local namecall = mt.__namecall
-local PetIDINDEX = ""
+local PetIDINDEX = "#16"
 local remote = {
 	"InvokeServer",
 	"FireServer"
@@ -53,11 +53,11 @@ local zone = {
 }
 
 local function Gold(ary)
-    game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestCraftItem"]:InvokeServer(2,"#11",1,1,{ary,ary,ary,ary,ary,ary})
+    game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestCraftItem"]:InvokeServer(2,PetIDINDEX,1,1,{ary,ary,ary,ary,ary,ary})
 end
 
 local function Rb(ary)
-    game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestCraftItem"]:InvokeServer(2,"#11",2,1,{ary,ary,ary,ary,ary,ary})
+    game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestCraftItem"]:InvokeServer(2,PetIDINDEX,2,1,{ary,ary,ary,ary,ary,ary})
 end
 
 local function Converting(str)
@@ -340,16 +340,14 @@ T1:AddToggle({
 }
 
 game:GetService("ReplicatedStorage")["GameAnalyticsError"]:FireServer(unpack(args))
-]]
+PetIDINDEX, RequestCraftItem InvokeServer]]
 
 mt.__namecall = newcclosure(function(self, ...)
 	local Method = getnamecallmethod()
 	local Args = {...}
 
-	if Method == remote[2] and self.Name == "GameAnalyticsError" then -- Blocked Script Caller with name "ResetIdleTimer"
-           T7:AddLabel("[ Debug ]: \nArgs 1: " .. tostring(Args[1]) .. "\nArgs 2: " .. tostring(Args[2]) .. "\nArgs 3: " .. tostring(Args[3]))
-	elseif Method == remote[1] and self.Name == "RequestEquipItem" then
-	   T7:AddLabel("[ Logger ]: Your pet ID is " .. tostring(Args[2]))
-        end
+	if Method == remote[1] and self.Name == "RequestCraftItem" then -- Blocked Script Caller with name "ResetIdleTimer"
+           PetIDINDEX = Args[2]
+	end
 	return namecall(self, ...) 
 end)
