@@ -1,12 +1,16 @@
 local mt = getrawmetatable(game);
 setreadonly(mt,false)
 local namecall = mt.__namecall
+local remote = {
+	"InvokeServer",
+	"FireServer"
+}
 
 mt.__namecall = newcclosure(function(self, ...)
 	local Method = getnamecallmethod()
 	local Args = {...}
 
-	if Method == 'InvokeServer' and self.Name == "ResetIdleTimer" then -- Blocked Script Caller with name "ResetIdleTimer"
+	if Method == remote[1] and self.Name == "ResetIdleTimer" then -- Blocked Script Caller with name "ResetIdleTimer"
            return 
         end
 	return namecall(self, ...) 
