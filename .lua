@@ -36,6 +36,14 @@ local zone = {
 	"Fire"
 }
 
+local function Gold(ary)
+    game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestCraftItem"]:InvokeServer(2,"#11",1,1,{ary,ary,ary,ary,ary,ary})
+end
+
+local function Rb(ary)
+    game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestCraftItem"]:InvokeServer(2,"#11",2,1,{ary,ary,ary,ary,ary,ary})
+end
+
 local function Converting(str)
 	return str:gsub("Meadow","1"):gsub("Desert","2"):gsub("Ice","3"):gsub("Forest","4"):gsub("Chaos","5"):gsub("Fire","6")
 end
@@ -68,10 +76,39 @@ Icon = "rbxassetid://",
 PremiumOnly = false
 })
 
+local T6 = Window:MakeTab({
+Name = "Gold & Rainbow",
+Icon = "rbxassetid://",
+PremiumOnly = false
+})
+
 local T4 = Window:MakeTab({
 Name = "Arena PVP",
 Icon = "rbxassetid://",
 PremiumOnly = false
+})
+
+T6:AddTextbox({
+  Name = "Enter Pet ID (example: @123)",
+  Default = "@123",
+  TextDisappear = false,
+  Callback = function(Value)
+     _G.PetID = Value
+  end  
+})
+
+T6:AddButton({
+  Name = "Enchant GOLD",
+  Callback = function()
+      Gold(_G.PetID)
+  end    
+})
+
+T6:AddButton({
+  Name = "Enchant RAINBOW",
+  Callback = function()
+      Rb(_G.PetID)
+  end    
 })
 
 T5:AddDropdown({
@@ -143,11 +180,11 @@ T4:AddToggle({
 })
 
 T2:AddDropdown({
-   Name = "Select Egg ID",
-   Default = "1",
-   Options = {"1","2","3","4","5","6"},
+   Name = "Select Egg",
+   Default = zone[1],
+   Options = zone,
    Callback = function(Value)
-      _G.EggID = tonumber(Value)
+      _G.EggID = Converting(Value)
    end    
 })
 
@@ -167,7 +204,7 @@ T2:AddToggle({
     _G.he = Value
       while wait() do
         if _G.he == false then break end
-        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestOpenCrate"]:InvokeServer(_G.EggID,_G.a_h)
+        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestOpenCrate"]:InvokeServer(tonumber(_G.EggID),_G.a_h)
       end
   end    
 })
