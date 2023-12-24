@@ -45,7 +45,8 @@ local zone = {
 	"Ice",
 	"Forest",
 	"Chaos",
-	"Fire"
+	"Fire",
+	"Cyber"
 }
 
 local function Gold(ary)
@@ -57,7 +58,7 @@ local function Rb(ary)
 end
 
 local function Converting(str)
-	return str:gsub("Meadow","1"):gsub("Desert","2"):gsub("Ice","3"):gsub("Forest","4"):gsub("Chaos","5"):gsub("Fire","6")
+	return str:gsub("Meadow","1"):gsub("Desert","2"):gsub("Ice","3"):gsub("Forest","4"):gsub("Chaos","5"):gsub("Fire","6"):gsub("Cyber","7"):gsub("Christmas","15")
 end
 
 local function ConvertingToNumber(str)
@@ -146,6 +147,13 @@ T5:AddButton({
   end    
 })
 
+T5:AddButton({
+  Name = "Buy zone",
+  Callback = function()
+      game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestPurchaseZoneAccess"]:InvokeServer(_G.ZoneTP)
+  end    
+})
+
 T4:AddLabel("Arena Only")
 
 T4:AddSlider({
@@ -227,6 +235,18 @@ T2:AddToggle({
       while wait() do
         if _G.he == false then break end
         game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestOpenCrate"]:InvokeServer(tonumber(_G.EggID),_G.a_h)
+      end
+  end    
+})
+
+T2:AddToggle({
+  Name = "Auto Hatch",
+  Default = false,
+  Callback = function(Value)
+    _G.hce = Value
+      while wait() do
+        if _G.hce == false then break end
+        game:GetService("ReplicatedStorage")["Packages"]["_Index"]:FindFirstChild("sleitnick_knit@1.4.7")["knit"]["Services"]["GameService"]["RF"]["RequestOpenCrate"]:InvokeServer(15,_G.a_h)
       end
   end    
 })
