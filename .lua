@@ -240,7 +240,7 @@ T2:AddToggle({
 })
 
 T2:AddToggle({
-  Name = "Auto Hatch",
+  Name = "Hatch Christmas Egg",
   Default = false,
   Callback = function(Value)
     _G.hce = Value
